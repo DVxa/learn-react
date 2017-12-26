@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
-import UserDetail from './user-detail'
+import UserDetail from './user-detail';
+import {Link} from 'react-router-dom';
+import './user-details.css';
 
 let detailsRecords = [{
     id: "1",
@@ -25,8 +27,16 @@ let UserDetails = class UserDetails extends Component {
     }
 
     componentDidMount() {
+        this.fetchList();
+    }
+
+    componentWillReceiveProps() {
+        this.fetchList();
+    }
+
+    fetchList =() => {
         let {match: {params: {id}}} = this.props;
-        this.setState({details: detailsRecords})
+        this.setState({details: detailsRecords});
         if (id) {
             console.log('id', id, detailsRecords.filter(it => it.id !== id));
             this.setState({details: detailsRecords.filter(it => it.id !== id)})
@@ -34,9 +44,10 @@ let UserDetails = class UserDetails extends Component {
     }
 
     render() {
-        console.log(this.state.details);
+        // console.log(this.state.details);
         return (
             <div>
+                <Link to={'/users'}>Users</Link>
                 {this.state.details.map((detail, i) => {
                     return <UserDetail key={i} detail={detail}/>
                 })}

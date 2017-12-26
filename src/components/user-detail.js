@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
+import {Link} from 'react-router-dom'
 
 class UserDetail extends Component {
     render(){
         let {detail} = this.props;
-        console.log(detail);
+
         return (
             <div className="container">
                 <div className="row">
@@ -11,9 +12,9 @@ class UserDetail extends Component {
                         <div className="well profile">
                             <div className="col-sm-12">
                                 <div className="col-xs-12 col-sm-8">
-                                    <h2>{detail.name}</h2>
+                                    <h2><Link to={`/users/${detail.id}`}>{detail.name}</Link></h2>
                                     <p><strong>About: </strong> {detail.about} </p>
-                                    <p><strong>Hobbies: </strong> {detail.hobbies} </p>
+                                    <p><strong>Hobbies: </strong> {detail.hobby} </p>
                                     <p><strong>Skills: </strong>
                                         {detail.skills.map((skill, i)=>{
                                             return <span key={i} className="tags">{skill}</span>

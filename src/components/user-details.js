@@ -35,7 +35,7 @@ let UserDetails = class UserDetails extends Component {
         // console.log(this.state.details);
         return (
             <div>
-                <Link to={'/users'}>Users</Link>
+                <Link to={'/grid'}>Users</Link>
                 {this.state.details.map((detail, i) => {
                     return <UserDetail key={i} detail={detail}/>
                 })}

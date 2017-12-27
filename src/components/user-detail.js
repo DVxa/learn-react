@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
-import {Link} from 'react-router-dom'
 
 class UserDetail extends Component {
-    render(){
+    render() {
         let {detail} = this.props;
 
         return (
@@ -12,18 +11,20 @@ class UserDetail extends Component {
                         <div className="well profile">
                             <div className="col-sm-12">
                                 <div className="col-xs-12 col-sm-8">
-                                    <h2><Link to={`/users/${detail.id}`}>{detail.firstName} {detail.lastName}</Link></h2>
+                                    <h2>{detail.firstName} {detail.lastName}</h2>
                                     <p><strong>About: </strong> {detail.about} </p>
                                     <p><strong>Hobbies: </strong> {detail.hobby} </p>
                                     <p><strong>Skills: </strong>
-                                        {detail.skills.map((skill, i)=>{
+                                        {detail.skills.map((skill, i) => {
                                             return <span key={i} className="tags">{skill}</span>
                                         })}
                                     </p>
                                 </div>
                                 <div className="col-xs-12 col-sm-4 text-center">
                                     <figure>
-                                        <img src="http://www.bitrebels.com/wp-content/uploads/2011/02/Original-Facebook-Geek-Profile-Avatar-2.jpg" alt="" className="img-circle img-responsive"/>
+                                        <img
+                                            src="http://www.bitrebels.com/wp-content/uploads/2011/02/Original-Facebook-Geek-Profile-Avatar-2.jpg"
+                                            alt="" className="img-circle img-responsive"/>
                                     </figure>
                                 </div>
                             </div>

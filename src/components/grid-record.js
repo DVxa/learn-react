@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {Link} from 'react-router-dom';
 
 class GridRecord extends Component {
 
@@ -23,6 +24,7 @@ class GridRecord extends Component {
                 <td>
                     <input type="checkbox" checked={record.active} onChange={this.handleToggleActive}/>
                 </td>
+                <td><Link to={`/users/${record.id}`}>View >></Link></td>
             </tr>
         )
     }

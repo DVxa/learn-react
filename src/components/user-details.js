@@ -1,22 +1,10 @@
 import React, {Component} from 'react';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import * as gridActions from '../reducers/grid-reducer';
 import UserDetail from './user-detail';
 import {Link} from 'react-router-dom';
 import './user-details.css';
-
-let detailsRecords = [{
-    id: "1",
-    name: "John Doe",
-    about: "Nice guy",
-    hobby: "Likes drinking wine",
-    skills: ["html", "javascript", "redux"]
-}, {
-    id: "2",
-    name: "Mary Moe",
-    about: "Cute girl",
-    hobby: "Likes playing xbox whole days long",
-    skills: ["Fortran", "Lua", "R#"]
-}];
-
 
 let UserDetails = class UserDetails extends Component {
     constructor() {
@@ -34,14 +22,14 @@ let UserDetails = class UserDetails extends Component {
         this.fetchList();
     }
 
-    fetchList =() => {
-        let {match: {params: {id}}} = this.props;
-        this.setState({details: detailsRecords});
+    fetchList = () => {
+        let {match: {params: {id}}, users} = this.props;
+        this.setState({details: users});
         if (id) {
-            console.log('id', id, detailsRecords.filter(it => it.id !== id));
-            this.setState({details: detailsRecords.filter(it => it.id !== id)})
+            console.log('id', id, users.filter(it => it.id === id));
+            this.setState({details: users.filter(it => it.id === id)})
         }
-    }
+    };
 
     render() {
         // console.log(this.state.details);
@@ -56,4 +44,17 @@ let UserDetails = class UserDetails extends Component {
     }
 };
 
-export default UserDetails;
+function mapStateToProps(state) {
+    return {
+        users: state.users,
+    }
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+        actions: bindActionCreators(gridActions, dispatch)
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(UserDetails);
+

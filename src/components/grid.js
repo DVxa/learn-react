@@ -1,18 +1,10 @@
 import React, {Component} from 'react';
-import UserDetailsComponent from './user-details';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import * as gridActions from '../reducers/grid-reducer';
+import GridRecord from './grid-record';
 
 class GridComponent extends Component {
-
-    constructor(props) {
-        super(props);
-        this.state = {
-            records: [
-                {firstName: 'John', lastName: 'Doe'},
-                {firstName: 'Mary', lastName: 'Doe'},
-                {firstName: 'Peter', lastName: 'Noname'},
-            ]
-        };
-    }
 
     updateLastName(index, newValue) {
         let {records} = this.state;
@@ -27,7 +19,7 @@ class GridComponent extends Component {
 
         return (
             <div>
-                <div style={{width: 300, height: 300, padding: 20}}>
+                <div className="container">
                     <p>
                         <input type="text" placeholder="Filter by..."/>
                     </p>
@@ -40,7 +32,7 @@ class GridComponent extends Component {
                         </tr>
                         </thead>
                         <tbody>
-                        { this.state.records.map((record, index) =>
+                        { this.props.users.map((record, index) =>
                             <GridRecord record={record} key={index}
                                         updateLastName={this.updateLastName.bind(this, index)}/>
                         )}
@@ -48,30 +40,21 @@ class GridComponent extends Component {
                     </table>
                 </div>
                 <hr/>
-                <UserDetailsComponent id={1} />
             </div>
         )
     }
 }
 
-class GridRecord extends Component {
-
-    handleLastNameChange = (e) => {
-        const {updateLastName} = this.props;
-        updateLastName(e.target.value);
-    };
-
-    render() {
-        const {record} = this.props;
-        return (
-            <tr>
-                <td>{record.firstName}</td>
-                <td><input type="text" value={record.lastName}
-                           onChange={this.handleLastNameChange}/></td>
-                <td>Да</td>
-            </tr>
-        )
+function mapStateToProps(state) {
+    return {
+        users: state.users,
     }
 }
 
-export default GridComponent;
+function mapDispatchToProps(dispatch) {
+    return {
+        actions: bindActionCreators(gridActions, dispatch)
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(GridComponent);

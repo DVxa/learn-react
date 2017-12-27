@@ -12,7 +12,7 @@ class UserDetail extends Component {
                         <div className="well profile">
                             <div className="col-sm-12">
                                 <div className="col-xs-12 col-sm-8">
-                                    <h2><Link to={`/users/${detail.id}`}>{detail.name}</Link></h2>
+                                    <h2><Link to={`/users/${detail.id}`}>{detail.firstName} {detail.lastName}</Link></h2>
                                     <p><strong>About: </strong> {detail.about} </p>
                                     <p><strong>Hobbies: </strong> {detail.hobby} </p>
                                     <p><strong>Skills: </strong>

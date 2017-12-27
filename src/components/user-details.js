@@ -4,6 +4,7 @@ import {bindActionCreators} from 'redux';
 import * as gridActions from '../reducers/grid-reducer';
 import UserDetail from './user-detail';
 import {Link} from 'react-router-dom';
+import '../bootstrap.css';
 import './user-details.css';
 
 class UserDetails extends Component {
@@ -20,7 +21,7 @@ class UserDetails extends Component {
         }
     }
 
-    componentWillUnmount () {
+    componentWillUnmount() {
         console.log('cwu')
         const {actions} = this.props;
         actions.clearFilterDetails();
@@ -34,11 +35,19 @@ class UserDetails extends Component {
     render() {
         const {users} = this.props;
         return (
-            <div>
-                <Link to={'/grid'}>Users</Link>
-                {users.map((detail, i) => {
-                    return <UserDetail key={i} detail={detail}/>
-                })}
+            <div className="container">
+                <div className="row">
+                    <div className="col-lg-1">
+                        <span style={{margin: '20px 50px'}}><Link to={'/grid'}>Users</Link></span>
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="col-lg-1">
+                        {users.map((detail, i) => {
+                            return <UserDetail key={i} detail={detail}/>
+                        })}
+                    </div>
+                </div>
             </div>
         )
     }

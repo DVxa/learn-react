@@ -10,9 +10,9 @@ export default class AppRouter extends Component {
         return (
             <BrowserRouter>
                 <Switch>
-                    <Route component={Grid} path="/grid"/>
                     <Route component={UserDetails} path="/users/:id"/>
-                    <Route component={Main} path=""/>
+                    <Route component={Grid} path="/grid"/>
+                    <Route component={Main} path="/"/>
                     {/* <Route component={UserDetails} path="/users"/> */}
                 </Switch>
             </BrowserRouter>

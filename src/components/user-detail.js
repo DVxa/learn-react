@@ -24,7 +24,7 @@ class UserDetail extends Component {
                                     <figure>
                                         <img
                                             src="http://www.bitrebels.com/wp-content/uploads/2011/02/Original-Facebook-Geek-Profile-Avatar-2.jpg"
-                                            alt="" className="img-circle img-responsive"/>
+                                            alt="" className="rounded-circle"/>
                                     </figure>
                                 </div>
                             </div>

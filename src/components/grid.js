@@ -6,23 +6,23 @@ import {Link} from 'react-router-dom';
 import GridRecord from './grid-record';
 
 class GridComponent extends Component {
-    componentDidMount () {
-        const {actions} =this.props;
+    componentDidMount() {
+        const {actions} = this.props;
         actions.setFilter(null);
     }
 
     applyFilter = (e) => {
-        const {actions} =this.props;
+        const {actions} = this.props;
         actions.setFilter(e.target.value);
     };
 
     toggleActive = (index, newValue) => {
-        const {actions} =this.props;
+        const {actions} = this.props;
         actions.toggleActive(index);
     };
 
     updateLastName = (index, value) => {
-        const {actions} =this.props;
+        const {actions} = this.props;
         actions.changeLastName({index, value})
     }
 
@@ -32,18 +32,23 @@ class GridComponent extends Component {
         const {users} = this.props;
         // console.log(users);
 
-        if(this.props.loading){
+        if (this.props.loading) {
             return (
-                <div style={{width:300, height: 300, padding: 20}}>Loading...</div>
+                <div style={{width: 300, height: 300, padding: 20}}>Loading...</div>
             )
         }
 
         return (
             <div>
-                <Link to={'/'}>Main</Link>
                 <div className="container">
+                    <div className="row">
+                        <div className="col-lg-1">
+                            <Link to={'/'}>Main</Link>
+                        </div>
+                    </div>
                     <p>
-                        <input type="text" placeholder="Filter by First Name..." onChange={this.applyFilter.bind(this)}/>
+                        <input type="text" placeholder="Filter by First Name..."
+                               onChange={this.applyFilter.bind(this)}/>
                     </p>
                     <table className="table table-condensed">
                         <thead>

@@ -2,10 +2,10 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as gridActions from '../reducers/grid-reducer';
+import {Link} from 'react-router-dom';
 import GridRecord from './grid-record';
 
 class GridComponent extends Component {
-
     componentDidMount () {
         const {actions} =this.props;
         actions.setFilter(null);
@@ -32,8 +32,15 @@ class GridComponent extends Component {
         const {users} = this.props;
         // console.log(users);
 
+        if(this.props.loading){
+            return (
+                <div style={{width:300, height: 300, padding: 20}}>Loading...</div>
+            )
+        }
+
         return (
             <div>
+                <Link to={'/'}>Main</Link>
                 <div className="container">
                     <p>
                         <input type="text" placeholder="Filter by First Name..." onChange={this.applyFilter.bind(this)}/>

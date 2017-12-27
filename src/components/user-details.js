@@ -21,15 +21,12 @@ class UserDetails extends Component {
         }
     }
 
-    componentWillUnmount() {
-        console.log('cwu')
-        const {actions} = this.props;
-        actions.clearFilterDetails();
-    }
-
     fetchList = (id) => {
         const {actions} = this.props;
-        actions.setFilterDetails(id);
+        fetch("http://localhost:4730")
+            .then(response => response.json())
+            .then(json => actions.addDataInDetails(json.detailsRecords))
+            .then(() => actions.setFilterDetails(id));
     };
 
     render() {

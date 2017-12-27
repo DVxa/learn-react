@@ -8,7 +8,12 @@ import GridRecord from './grid-record';
 class GridComponent extends Component {
     componentDidMount() {
         const {actions} = this.props;
-        actions.setFilter(null);
+        fetch('http://localhost:4730')
+            .then(function (response) {
+                return response.json();
+            }).then(function (json) {
+            actions.addDataInDetails(json.detailsRecords);
+        })
     }
 
     applyFilter = (e) => {

@@ -7,49 +7,50 @@ app.all('/', function(req, res, next) {
     next();
 });
 
-var gridRecords = [
-        {firstName: "John", lastName: "Doe", active: false, id: 1},
-        {firstName: "Mary", lastName: "Moe", active: false, id: 2},
-        {firstName: "Peter", lastName: "Noname", active: true, id: 3}
-    ],
-    detailsRecords = [{
-        id:1,
-        name:"John Doe",
+var detailsRecords = [{
+        id:"1",
+        firstName: "John",
+        lastName: "Doe",
         about:"Nice guy",
         hobby:"Likes drinking wine",
-        skills:["html", "javascript", "redux"]
+        skills:["html", "javascript", "redux"],
+        active: false
     },{
-        id:2,
-        name:"Mary Moe",
+        id:"2",
+        firstName: "Mary",
+        lastName: "Moe",
         about:"Cute girl",
         hobby:"Likes playing xbox whole days long",
-        skills:["Fortran", "Lua", "R#"]
+        skills:["Fortran", "Lua", "R#"],
+        active: false
     },{
-        id:3,
-        name:"Peter",
+        id:"3",
+        firstName: "Peter",
+        lastName: "Noname",
         about:"Awesome Developer",
         hobby:"He is the author of React.js",
-        skills:["Lisp", "Om", "JS"]
+        skills:["Lisp", "Om", "JS"],
+        active: false
     }];
 
 var id = 3;
 
 function generateData(){
     id+=1;
-    gridRecords.push({firstName: "Generated", lastName: "Randomly", active: false, id: id});
     detailsRecords.push({
-        id:id,
-        name:"GeneratedRandomly",
+        id:id.toString(),
+        firstName:`Generated#${id}`,
+        lastName:"Randomly",
         about:"Generated About",
         hobby:"Generated Hobby",
-        skills:["G", "E", "N", "E", "R", "A", "T", "E", "D", id]
+        skills:["G", "E", "N", "E", "R", "A", "T", "E", "D", id],
+        active: false
     });
 }
 
 app.get('/', function(req, res) {
     generateData();
     res.json({
-        gridRecords:gridRecords,
         detailsRecords:detailsRecords
     });
 });

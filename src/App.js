@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import './App.css';
 import './bootstrap.css';
-import GridComponent from './components/grid';
+import AppRouter from './routes/routes';
 
 class App extends Component {
   render() {
     return (
-      <GridComponent />
+      <AppRouter />
     );
   }
 }

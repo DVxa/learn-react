@@ -32,7 +32,7 @@ class GridComponent extends Component {
         const {users} = this.props;
         // console.log(users);
 
-        if (this.props.loading) {
+        if (!users) {
             return (
                 <div style={{width: 300, height: 300, padding: 20}}>Loading...</div>
             )

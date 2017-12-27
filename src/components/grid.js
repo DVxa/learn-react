@@ -16,12 +16,14 @@ class GridComponent extends Component {
         actions.setFilter(e.target.value);
     };
 
-    updateLastName = (index, newValue) => {
-        let {records} = this.state;
-        records[index].lastName = newValue;
-        this.setState({
-            records: records
-        })
+    toggleActive = (index, newValue) => {
+        const {actions} =this.props;
+        actions.toggleActive(index);
+    };
+
+    updateLastName = (index, value) => {
+        const {actions} =this.props;
+        actions.changeLastName({index, value})
     }
 
     render() {
@@ -34,7 +36,7 @@ class GridComponent extends Component {
             <div>
                 <div className="container">
                     <p>
-                        <input type="text" placeholder="Filter by First Name..." onChange={this.applyFilter}/>
+                        <input type="text" placeholder="Filter by First Name..." onChange={this.applyFilter.bind(this)}/>
                     </p>
                     <table className="table table-condensed">
                         <thead>
@@ -46,8 +48,12 @@ class GridComponent extends Component {
                         </thead>
                         <tbody>
                         { users.map((record, index) =>
-                            <GridRecord record={record} key={index}
-                                        updateLastName={this.updateLastName.bind(this, index)}/>
+                            <GridRecord
+                                record={record}
+                                key={index}
+                                updateLastName={this.updateLastName.bind(this, index)}
+                                toggleActive={this.toggleActive.bind(this, index)}
+                            />
                         )}
                         </tbody>
                     </table>

@@ -13,6 +13,18 @@ export const setFilter = (value) => ({
     payload: value
 });
 
+export const toggleActive = (value) => ({
+    type: "TOGGLE_ACTIVE",
+    payload: value
+});
+
+export const changeLastName = (value) => ({
+    type: "CHANGE_LAST_NAME",
+    payload: value
+});
+
+
+
 const users =
     [
         {
@@ -31,7 +43,7 @@ const users =
             about: "Cute girl",
             hobby: "Likes playing xbox whole days long",
             skills: ["Fortran", "Lua", "R#"],
-            active: true
+            active: false
         }
     ]
 ;
@@ -40,9 +52,13 @@ export default function usersReducer(state = users, action) {
     console.log(action, state);
     switch (action.type) {
         case "TOGGLE_ACTIVE":
-            let newState = [...state];
+            const newState = [...state];
             newState[action.payload].active = !newState[action.payload].active;
             return newState;
+        case "CHANGE_LAST_NAME":
+            const newState1 = [...state];
+            newState1[action.payload.index].lastName = action.payload.value;
+            return newState1;
         case "FILTER":
             return action.payload ? state.filter(it => it.firstName.toUpperCase().includes(action.payload.toUpperCase())) : users;
         case "FILTER_DETAILS":

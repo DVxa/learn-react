@@ -8,9 +8,9 @@ class GridRecord extends Component {
         updateLastName(e.target.value);
     };
 
-    handleToggleActive = (e) => {
+    handleToggleActive = (value) => {
         const {toggleActive} = this.props;
-        toggleActive(e.target.value);
+        toggleActive(value);
     };
 
     render() {

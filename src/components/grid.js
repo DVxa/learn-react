@@ -6,7 +6,17 @@ import GridRecord from './grid-record';
 
 class GridComponent extends Component {
 
-    updateLastName(index, newValue) {
+    componentDidMount () {
+        const {actions} =this.props;
+        actions.setFilter(null);
+    }
+
+    applyFilter = (e) => {
+        const {actions} =this.props;
+        actions.setFilter(e.target.value);
+    };
+
+    updateLastName = (index, newValue) => {
         let {records} = this.state;
         records[index].lastName = newValue;
         this.setState({
@@ -17,11 +27,14 @@ class GridComponent extends Component {
     render() {
         // this.state.records.map((record, index) => console.log(record, index));
 
+        const {users} = this.props;
+        // console.log(users);
+
         return (
             <div>
                 <div className="container">
                     <p>
-                        <input type="text" placeholder="Filter by..."/>
+                        <input type="text" placeholder="Filter by First Name..." onChange={this.applyFilter}/>
                     </p>
                     <table className="table table-condensed">
                         <thead>
@@ -32,7 +45,7 @@ class GridComponent extends Component {
                         </tr>
                         </thead>
                         <tbody>
-                        { this.props.users.map((record, index) =>
+                        { users.map((record, index) =>
                             <GridRecord record={record} key={index}
                                         updateLastName={this.updateLastName.bind(this, index)}/>
                         )}
@@ -45,16 +58,6 @@ class GridComponent extends Component {
     }
 }
 
-function mapStateToProps(state) {
-    return {
-        users: state.users,
-    }
-}
-
-function mapDispatchToProps(dispatch) {
-    return {
-        actions: bindActionCreators(gridActions, dispatch)
-    }
-}
-
+const mapStateToProps = state => ({users: state.users})
+const mapDispatchToProps = dispatch => ({actions: bindActionCreators(gridActions, dispatch)});
 export default connect(mapStateToProps, mapDispatchToProps)(GridComponent);

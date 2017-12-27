@@ -6,37 +6,37 @@ import UserDetail from './user-detail';
 import {Link} from 'react-router-dom';
 import './user-details.css';
 
-let UserDetails = class UserDetails extends Component {
-    constructor() {
-        super();
-        this.state = {
-            details: []
-        }
-    }
-
+class UserDetails extends Component {
     componentDidMount() {
-        this.fetchList();
+        const {match: {params: {id}}} = this.props;
+        this.fetchList(id);
     }
 
-    componentWillReceiveProps() {
-        this.fetchList();
-    }
-
-    fetchList = () => {
-        let {match: {params: {id}}, users} = this.props;
-        this.setState({details: users});
-        if (id) {
-            console.log('id', id, users.filter(it => it.id === id));
-            this.setState({details: users.filter(it => it.id === id)})
+    componentWillReceiveProps(nextProps) {
+        const {match: {params: {id: oldId}}} = this.props;
+        const {match: {params: {id}}} = nextProps;
+        if (oldId !== id) {
+            this.fetchList(id);
         }
+    }
+
+    componentWillUnmount () {
+        console.log('cwu')
+        const {actions} = this.props;
+        actions.clearFilterDetails();
+    }
+
+    fetchList = (id) => {
+        const {actions} = this.props;
+        actions.setFilterDetails(id);
     };
 
     render() {
-        // console.log(this.state.details);
+        const {users} = this.props;
         return (
             <div>
                 <Link to={'/grid'}>Users</Link>
-                {this.state.details.map((detail, i) => {
+                {users.map((detail, i) => {
                     return <UserDetail key={i} detail={detail}/>
                 })}
             </div>
@@ -44,17 +44,7 @@ let UserDetails = class UserDetails extends Component {
     }
 };
 
-function mapStateToProps(state) {
-    return {
-        users: state.users,
-    }
-}
-
-function mapDispatchToProps(dispatch) {
-    return {
-        actions: bindActionCreators(gridActions, dispatch)
-    }
-}
-
+const mapStateToProps = state => ({users: state.users})
+const mapDispatchToProps = dispatch => ({actions: bindActionCreators(gridActions, dispatch)});
 export default connect(mapStateToProps, mapDispatchToProps)(UserDetails);
 
